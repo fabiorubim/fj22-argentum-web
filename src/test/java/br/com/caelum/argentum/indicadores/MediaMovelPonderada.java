@@ -7,21 +7,25 @@ import org.junit.Test;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
-public class MediaMovelPonderada {
+public class MediaMovelPonderada implements Indicador{
+	
+	private Indicador outroIndicador;
+	
 	public double calcula(int posicao, SerieTemporal serie){
 		double soma = 0.0;
 		int peso = 3;
 		
 		for(int i = posicao; i > posicao -3; i--){
 			Candle c = serie.getCandle(i);
-			soma +=c.getFechamento()*peso;
+			//soma +=c.getFechamento()*peso;
+			soma += outroIndicador.calcula(i,serie)*peso;
 			peso--;
 		}
 		return soma/6;
 			
 	}
 	
-	@Test
+	/*@Test
 	public void sequenciaSimplesDeCandles(){
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1,2,3,4,5,6);
 		MediaMovelPonderada mmp = new MediaMovelPonderada();
@@ -31,6 +35,16 @@ public class MediaMovelPonderada {
 		Assert.assertEquals(20.0/6, mmp.calcula(3, serie),0.00001);
 		Assert.assertEquals(26.0/6, mmp.calcula(4, serie),0.00001);
 		Assert.assertEquals(32.0/6, mmp.calcula(5, serie),0.00001);
+	}*/
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "MMS de Fechamento";
+	}
+	
+	public MediaMovelPonderada(Indicador outroIndicaro){
+		this.outroIndicador = outroIndicaro;
 	}
 	
 
