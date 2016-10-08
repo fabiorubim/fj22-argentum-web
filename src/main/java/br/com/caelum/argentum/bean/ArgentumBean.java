@@ -51,7 +51,7 @@ public class ArgentumBean {
 	}
 
 	public void geraGrafico() {
-		System.out.println("Plotando: "+nomeMedia+" de "+nomeIndicadorBase);
+		System.out.println("Plotando:  "+nomeMedia+" de "+nomeIndicadorBase);
 		
 		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
 		SerieTemporal serie = new SerieTemporal(candles);
